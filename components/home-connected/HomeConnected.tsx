@@ -159,10 +159,17 @@ const HomeConnected: React.FC<HomeConnectedProps> = () => {
             setTransferPending(false);
         }
     }
+    const formatAmount = (value: any) => {
+        try{
+            return Math.floor(Number(value) * 10000) / 10000
+        }catch(err){
+            return 0
+        }
+    }
     return (
         <>
             <Head>
-                <title>BSC ETH Bridge</title>
+                <title>Ternoa bridge</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 <meta name="description" content="BSC ETH Bridge, by Ternoa." />
             </Head>
@@ -237,7 +244,7 @@ const HomeConnected: React.FC<HomeConnectedProps> = () => {
                                                 value={capsToSwap}
                                                 onChange={(e) => {
                                                     Number(e.target.value) >= 0 && Number(e.target.value) <= maxCapsToSwap ?
-                                                        setCapsToSwap(Number(e.target.value))
+                                                        setCapsToSwap(formatAmount(e.target.value))
                                                         :
                                                         setCapsToSwap(maxCapsToSwap)
                                                 }}
@@ -265,7 +272,7 @@ const HomeConnected: React.FC<HomeConnectedProps> = () => {
                                 <div className={"col-2"} onClick={() => {
                                     if (userWallet) {
                                         if (userWallet.capsAmount <= maxCapsToSwap) {
-                                            setCapsToSwap(userWallet.capsAmount)
+                                            setCapsToSwap(formatAmount(userWallet.capsAmount))
                                         } else {
                                             setCapsToSwap(maxCapsToSwap)
                                         }
